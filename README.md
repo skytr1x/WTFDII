@@ -9,6 +9,8 @@ npm install package
 And then you figuring out that there is 20 more packages, about 4 of them you didn't even knew.
 WTFDII helps you out.
 
+What matters, that What the FUCK did i install made on Go. That's makes it a lot faster than internal tools of npm or pip in future.
+
 ## What it does?
 
 WTF Did I Install analyzes your project's dependencies and shows you:
