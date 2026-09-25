@@ -60,6 +60,7 @@ cd wtfdii
 go mod tidy
 go build -o wtfdii ./cmd/wtfdii
 
+# Move it to your path
 sudo mv wtfdii /usr/local/bin/
 ```
 
