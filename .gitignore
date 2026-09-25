@@ -8,7 +8,7 @@
 *.out
 vendor/
 go.work
-wtfdii
+/wtfdii
 dist/
 .idea/
 .vscode/
