@@ -49,19 +49,20 @@ func runOverview(cmd *cobra.Command, args []string) error {
 	cfg, err := config.Load(projectPath)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-		return err
+		return nil
 	}
 
 	a, err := analyzer.New(projectPath, cfg)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-		return err
+		return nil
 	}
 
 	tree, err := a.Analyze(ctx, projectPath)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-		return err
+		cmd.Help()
+		fmt.Fprintln(os.Stderr, "\nIf you're running it in a project directory, make sure that there are any packages.")
+		return nil
 	}
 
 	fmt.Print(formatter.FormatOverview(tree))
@@ -82,19 +83,20 @@ func whyCmd() *cobra.Command {
 			cfg, err := config.Load(projectPath)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			a, err := analyzer.New(projectPath, cfg)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			chain, err := a.GetDependencyChain(ctx, projectPath, packageName)
 			if err != nil {
-				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				cmd.Help()
+				fmt.Fprintln(os.Stderr, "\nIf you're running it in a project directory, make sure that there are any packages.")
+				return nil
 			}
 
 			fmt.Print(formatter.FormatDependencyChain(packageName, chain))
@@ -117,19 +119,20 @@ func sizeCmd() *cobra.Command {
 			cfg, err := config.Load(projectPath)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			a, err := analyzer.New(projectPath, cfg)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			packages, err := a.GetPackagesBySize(ctx, projectPath, limit)
 			if err != nil {
-				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				cmd.Help()
+				fmt.Fprintln(os.Stderr, "\nIf you're running it in a project directory, make sure that there are any packages.")
+				return nil
 			}
 
 			fmt.Print(formatter.FormatPackagesBySize(packages, limit))
@@ -153,19 +156,20 @@ func securityCmd() *cobra.Command {
 			cfg, err := config.Load(projectPath)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			a, err := analyzer.New(projectPath, cfg)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			issues, err := a.GetSecurityIssues(ctx, projectPath)
 			if err != nil {
-				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				cmd.Help()
+				fmt.Fprintln(os.Stderr, "\nIf you're running it in a project directory, make sure that there are any packages.")
+				return nil
 			}
 
 			fmt.Print(formatter.FormatSecurityIssues(issues))
@@ -186,19 +190,20 @@ func staleCmd() *cobra.Command {
 			cfg, err := config.Load(projectPath)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			a, err := analyzer.New(projectPath, cfg)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				return nil
 			}
 
 			packages, err := a.GetStalePackages(ctx, projectPath)
 			if err != nil {
-				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
-				return err
+				cmd.Help()
+				fmt.Fprintln(os.Stderr, "\nIf you're running it in a project directory, make sure that there are any packages.")
+				return nil
 			}
 
 			fmt.Print(formatter.FormatStalePackages(packages))
