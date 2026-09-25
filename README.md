@@ -181,3 +181,11 @@ You can create `.wtfdiirc` in your project root:
 - `stale_threshold_months` < How many months old a package should be to be considered stale (default: 24)
 - `ignore_packages` - Array of package names to ignore in analysis
 - `custom_rules` - Custom rules for analysis (still in plans tho)
+
+## What's about future?
+
+**For average user text below will be just shit. This text more like notes for me so nevermind about this section.**
+
+Project will be fully released when all of planned package manager will be added. I still wondering about system packages like pacman, apt, apk, u know.
+
+Better theme to discuss - uv of pip. uv already kinda package manager for pip and i don't really want to make useless support of uv venv. I'll do it just for a checkbox lol
