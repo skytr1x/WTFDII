@@ -87,6 +87,8 @@ node_modules              184 MB
   Run 'wtfdii unused' for unused dependencies
 ```
 
+---
+
 You can also find out **why** package is installed:
 
 ```bash
@@ -103,6 +105,8 @@ your-app
     └── some-plugin
         └── lodash
 ```
+
+---
 
 You can check size of every package:
 
@@ -121,6 +125,8 @@ eslint                                    9.2 MB
 lodash                                    4.8 MB
 ```
 
+---
+
 Feel unsecure with your packages? You can check it out:
 
 ```bash
@@ -138,6 +144,24 @@ Affected packages:
 high minimist 1.2.5
   Prototype Pollution in minimist
   https://npmjs.com/advisories/1179
+```
+
+---
+
+Wanna check for outdated packages?
+
+```bash
+> wtfdii stale
+```
+
+```text
+Potentially stale dependencies
+
+package                                  current         latest
+───────────────────────────────────────────────────────────────────────────
+lodash                                   4.17.15         4.18.1
+
+🟡 1 outdated packages found
 ```
 
 ## Configuration
