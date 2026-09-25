@@ -19,5 +19,6 @@ dist/
 Thumbs.db
 .wtfdiirc
 !.wtfdiirc.example
+
 docs/
-docs/*
+test-project/
