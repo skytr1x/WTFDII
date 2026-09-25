@@ -46,7 +46,13 @@ What the FUCK did I Install analyzes your project's dependencies and shows you:
 
 ## Installation
 
-Currently you can only build it from source:
+You can install wtfdii with Go modules:
+
+```bash
+go install github.com/skytr1x/wtfdii/cmd/wtfdii@latest
+```
+
+Or build it yourself from sources:
 
 ```bash
 git clone https://github.com/skytr1x/wtfdii
