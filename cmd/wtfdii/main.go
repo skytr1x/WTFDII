@@ -35,6 +35,7 @@ It shows you what packages are installed, why they're there, and potential issue
 	rootCmd.AddCommand(sizeCmd())
 	rootCmd.AddCommand(securityCmd())
 	rootCmd.AddCommand(staleCmd())
+	rootCmd.AddCommand(unusedCmd())
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -207,6 +208,40 @@ func staleCmd() *cobra.Command {
 			}
 
 			fmt.Print(formatter.FormatStalePackages(packages))
+			return nil
+		},
+	}
+}
+
+func unusedCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "unused",
+		Short: "Show potentially unused dependencies",
+		Long:  "Analyze source code to detect dependencies that may not be used.",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			ctx := context.Background()
+			formatter := output.New(!noColor)
+
+			cfg, err := config.Load(projectPath)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
+				return nil
+			}
+
+			a, err := analyzer.New(projectPath, cfg)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, formatter.FormatError(err))
+				return nil
+			}
+
+			packages, err := a.GetUnusedPackages(ctx, projectPath)
+			if err != nil {
+				cmd.Help()
+				fmt.Fprintln(os.Stderr, "\nIf you're running it in a project directory, make sure that there are any packages.")
+				return nil
+			}
+
+			fmt.Print(formatter.FormatUnusedPackages(packages))
 			return nil
 		},
 	}

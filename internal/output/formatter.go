@@ -197,6 +197,34 @@ func (f *Formatter) FormatStalePackages(packages []*models.StalePackage) string 
 	return sb.String()
 }
 
+func (f *Formatter) FormatUnusedPackages(packages []*models.Package) string {
+	var sb strings.Builder
+
+	sb.WriteString(f.color(colorBold, "Potentially unused dependencies\n\n"))
+
+	if len(packages) == 0 {
+		sb.WriteString(f.color(colorGreen, symbolInfo+" All dependencies appear to be used\n"))
+		return sb.String()
+	}
+
+	sb.WriteString(f.color(colorYellow, "⚠ Warning: This is heuristic analysis and may produce false positives\n\n"))
+
+	for _, pkg := range packages {
+		sb.WriteString(fmt.Sprintf("  %s\n", f.color(colorBlue, pkg.Name)))
+	}
+
+	sb.WriteString(fmt.Sprintf("\n%s %d potentially unused packages found\n",
+		symbolWarning, len(packages)))
+
+	sb.WriteString("\nNote: Packages may be used in:\n")
+	sb.WriteString("  - Dynamic imports\n")
+	sb.WriteString("  - Configuration files\n")
+	sb.WriteString("  - Build tools and plugins\n")
+	sb.WriteString("  - Scripts in package.json\n")
+
+	return sb.String()
+}
+
 func (f *Formatter) FormatError(err error) string {
 	return f.color(colorRed, "Error: "+err.Error())
 }
