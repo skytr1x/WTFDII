@@ -40,6 +40,11 @@ func (n *NpmAdapter) Detect(projectPath string) (bool, error) {
 }
 
 func (n *NpmAdapter) GetDependencies(ctx context.Context, projectPath string) (*models.DependencyTree, error) {
+	pkgPath := filepath.Join(projectPath, "package.json")
+	if _, err := os.Stat(pkgPath); os.IsNotExist(err) {
+		return nil, fmt.Errorf("package.json not found in %s\n\nMake sure you're running wtfdii in a Node.js project directory", projectPath)
+	}
+
 	tree := &models.DependencyTree{
 		PackageManager: "npm",
 		Packages:       make(map[string]*models.Package),
