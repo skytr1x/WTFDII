@@ -1,20 +1,15 @@
-# WTF Did I Install? 🤔
+# What the FUCK did i install?
 
-> CLI tool that explains **what's actually in your project's dependencies**.
-
-You install one package:
+Imagine situation where you installed just one package
 
 ```bash
-npm install some-package
+npm install package
 ```
 
-And it pulls in 17 more packages, 4 of which you've never seen before.
+And then you figuring out that there is 20 more packages, about 4 of them you didn't even knew.
+WTFDII helps you out.
 
-**WTF Did I Install?** helps you figure it out.
-
----
-
-## 🎯 What It Does
+## What it does?
 
 WTF Did I Install analyzes your project's dependencies and shows you:
 
@@ -29,14 +24,16 @@ WTF Did I Install analyzes your project's dependencies and shows you:
 - Package licenses
 - Dependencies that can be replaced or removed
 
-## 📦 Supported Package Managers
+## Supported package managers
 
-**Current (Phase 1 - MVP):**
+**Currently supported:**
+
 - npm
 - pnpm
 - Yarn
 
-**Planned (Future phases):**
+**Future plans:**
+
 - pip
 - Poetry
 - Cargo
@@ -45,39 +42,26 @@ WTF Did I Install analyzes your project's dependencies and shows you:
 - Gradle
 - NuGet
 
-## 🚀 Installation
+## Installation
 
-### From Source
+Currently you can only build it from source:
 
 ```bash
 git clone https://github.com/skytr1x/wtfdii
 cd wtfdii
 go build -o wtfdii ./cmd/wtfdii
-```
 
-Then move the binary to your PATH:
-
-```bash
+# Moving binary to your path
 sudo mv wtfdii /usr/local/bin/
 ```
 
-### Using Go Install (Coming Soon)
-
-```bash
-go install github.com/skytr1x/wtfdii/cmd/wtfdii@latest
-```
-
-## 📖 Usage
-
-### Overview
+## Usage
 
 Show a summary of your project's dependencies:
 
 ```bash
-wtfdii
+> wtfdii
 ```
-
-Output:
 
 ```text
 WTF Did I Install?
@@ -103,15 +87,11 @@ node_modules              184 MB
   Run 'wtfdii unused' for unused dependencies
 ```
 
-### Why is this package installed?
-
-Find out why a specific package is in your project:
+You can also find out **why** package is installed:
 
 ```bash
-wtfdii why lodash
+> wtfdii why lodash
 ```
-
-Output:
 
 ```text
 lodash
@@ -124,18 +104,13 @@ your-app
         └── lodash
 ```
 
-### Show largest packages
-
-See which packages take up the most disk space:
+You can check size of every package:
 
 ```bash
-wtfdii size
+> wtfdii size
 ```
 
-Output:
-
 ```text
-Largest packages
 ────────────────────────────────────────────────────────────
 Package                                  Size
 ────────────────────────────────────────────────────────────
@@ -146,21 +121,11 @@ eslint                                    9.2 MB
 lodash                                    4.8 MB
 ```
 
-You can limit the number of results:
+Feel unsecure with your packages? You can check it out:
 
 ```bash
-wtfdii size --limit 5
+> wtfdii security
 ```
-
-### Security audit
-
-Check for known security vulnerabilities:
-
-```bash
-wtfdii security
-```
-
-Output:
 
 ```text
 Security
@@ -175,115 +140,18 @@ high minimist 1.2.5
   https://npmjs.com/advisories/1179
 ```
 
-## ⚙️ Configuration
+## Configuration
 
-Create a `.wtfdiirc` file in your project root:
+You can create `.wtfdiirc` in your project root:
 
 ```json
 {
-  "stale_threshold_months": 24,
-  "ignore_packages": [
-    "some-internal-package"
-  ],
-  "custom_rules": {}
+    "stale_threshold_months": 24,
+    "ignore_packages": ["some-internal-package"],
+    "custom_rules": {}
 }
 ```
 
-### Configuration Options
-
-- `stale_threshold_months` (default: 24) - How many months old a package should be to be considered stale
+- `stale_threshold_months` < How many months old a package should be to be considered stale (default: 24)
 - `ignore_packages` - Array of package names to ignore in analysis
-- `custom_rules` - Custom rules for analysis (coming soon)
-
-## 🎨 Options
-
-### Global Flags
-
-- `--path, -p <path>` - Project path to analyze (default: current directory)
-- `--no-color` - Disable colored output
-
-### Commands
-
-- `wtfdii` - Show overview of dependencies
-- `wtfdii why <package>` - Show why a package is installed
-- `wtfdii size` - Show largest packages
-- `wtfdii security` - Run security audit
-- `wtfdii stale` - Show outdated packages (coming in Phase 2)
-- `wtfdii unused` - Show potentially unused dependencies (coming in Phase 3)
-
-## 🏗️ Architecture
-
-The project uses a modular architecture with adapters for different package managers:
-
-```
-wtfdii/
-├── cmd/wtfdii/           # CLI entry point
-├── internal/
-│   ├── analyzer/         # Core analysis logic
-│   ├── packagemanager/   # Package manager adapters
-│   │   ├── manager.go    # Interface
-│   │   ├── npm.go        # NPM adapter
-│   │   ├── pnpm.go       # PNPM adapter
-│   │   └── yarn.go       # Yarn adapter
-│   ├── models/           # Data structures
-│   ├── output/           # Output formatting
-│   └── config/           # Configuration management
-└── docs/                 # Documentation
-```
-
-## 🛠️ Development
-
-### Prerequisites
-
-- Go 1.21+
-- Node.js (for testing with npm/pnpm/yarn projects)
-
-### Building
-
-```bash
-go build -o wtfdii ./cmd/wtfdii
-```
-
-### Running Tests
-
-```bash
-go test ./...
-```
-
-## 🗺️ Roadmap
-
-### Phase 1 (MVP) - ✅ Complete
-- [x] Basic dependency overview
-- [x] `wtfdii why <package>` command
-- [x] `wtfdii size` command
-- [x] Support for npm, pnpm, yarn
-- [x] Configuration file support
-
-### Phase 2
-- [ ] `wtfdii stale` - Show outdated packages
-- [ ] `wtfdii security` - Enhanced security analysis
-- [ ] Better dependency chain visualization
-- [ ] Duplicate dependencies detection
-
-### Phase 3
-- [ ] `wtfdii unused` - Detect unused dependencies
-- [ ] License analysis
-- [ ] Package replacement suggestions
-- [ ] Support for pip, Poetry, Cargo
-
-## 📝 License
-
-MIT
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 💡 Inspiration
-
-This tool was inspired by the common frustration of not knowing what's actually installed in `node_modules` and why.
-
----
-
-Made with ❤️ by skytr1x
-# WTFDII
+- `custom_rules` - Custom rules for analysis (still in plans tho)
